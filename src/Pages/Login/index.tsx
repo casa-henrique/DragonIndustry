@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 import { Container } from "./styles";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { GiCrossedSwords } from "react-icons/gi";
 import DragonLogo from "../../assets/images/dragonLogo.svg";
 import RedButton from "../../Components/RedButton";
@@ -21,7 +24,8 @@ function Login({ setToken }: any) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const refresh = () => window.location.replace(`/dragonlist`);
+  const redirect = () => window.location.replace(`/dragonlist`);
+  const notify = () => toast.error("Login ou senha estão incorretos");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,8 +36,9 @@ function Login({ setToken }: any) {
 
     if (username === "softUser" && password === "soft2022") {
       setToken(newToken);
+      redirect();
     } else {
-      alert("Login ou senha estão incorretos");
+      notify();
     }
   };
 
@@ -60,8 +65,9 @@ function Login({ setToken }: any) {
           />
         </div>
 
-        <RedButton text="Entrar" func={() => refresh()} />
+        <RedButton text="Entrar" />
       </form>
+      <ToastContainer />
     </Container>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Container, Content } from "./styles";
 
 import { BsCloudUpload } from "react-icons/bs";
@@ -13,7 +16,7 @@ function Register() {
   const [newType, setNewType] = useState("");
   const [newHs, setNewHs] = useState("");
 
-  const refresh = () => window.location.replace(`/dragonlist`);
+  const notify = () => toast.success(`Dragão ${newName} criado com sucesso`);
 
   const current = new Date();
   const newDate = `${current.getDate()}/${
@@ -97,11 +100,11 @@ function Register() {
           text="Adicionar Dragão"
           func={async () => {
             await createNewDragon();
-            await refresh();
-            alert("Dragão criado com sucesso");
+            await notify();
           }}
         />
       </Content>
+      <ToastContainer />
     </Container>
   );
 }

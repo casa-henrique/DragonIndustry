@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Container, Content } from "./styles";
 
 import noPicture from "../../assets/images/noPicture.svg";
@@ -29,6 +32,8 @@ function Details() {
   const pathEditable = location.pathname.replace(`/details:${id}:`, "");
 
   const refresh = () => window.location.replace(`/details:${id}`);
+
+  const notify = () => toast.success("Editado com sucesso!!");
 
   const [editDate, setEditDate] = useState("");
   const [editName, setEditName] = useState("");
@@ -132,8 +137,8 @@ function Details() {
                 text="Confirmar"
                 func={async () => {
                   await sendNewData();
+                  await notify();
                   await refresh();
-                  alert("Editado com sucesso");
                 }}
               />
             </form>
@@ -160,6 +165,7 @@ function Details() {
           </p>
         </div>
       </Content>
+      <ToastContainer />
     </Container>
   );
 }

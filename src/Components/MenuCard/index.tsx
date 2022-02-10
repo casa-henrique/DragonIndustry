@@ -1,11 +1,16 @@
 import React from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Container } from "./styles";
 import {} from "@testing-library/react";
 
 function MenuCard({ id, name }: any) {
   const refresh = () => window.location.reload();
+
+  const notify = () => toast.warn(`O Dragão ${name} foi excluido com sucesso`);
 
   const remove_dragons = async () => {
     try {
@@ -31,14 +36,15 @@ function MenuCard({ id, name }: any) {
         id="delete"
         onClick={async () => {
           {
+            await notify();
             await remove_dragons();
             await refresh();
-            alert(`O Dragão ${name} foi excluido com sucesso`);
           }
         }}
       >
         <p>Excluir</p>
       </button>
+      <ToastContainer />
     </Container>
   );
 }
