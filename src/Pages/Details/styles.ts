@@ -16,9 +16,6 @@ export const Container = styled.div`
 
     gap: 2rem;
   }
-  @media screen and (max-width: 425px) {
-    padding-bottom: 10rem;
-  }
 `;
 export const Content = styled.div`
   display: flex;
@@ -60,8 +57,8 @@ export const Content = styled.div`
     align-items: center;
     justify-content: center;
 
-    width: 100%;
-    height: 60%;
+    width: 90%;
+    height: 55%;
 
     background-color: #192720;
 
@@ -215,14 +212,22 @@ export const Content = styled.div`
         max-height: 14rem;
       }
     }
+    .cardInfos{
+      gap:1.5rem;
+    }
   }
 
   @media screen and (max-width: 425px) {
     display: flex;
     flex-direction: column;
 
+    overflow-x: auto;
+
     width: 100%;
 
+    .cardInfos{
+      gap:3rem;
+    }
     .cardWrapper,
     .detailWrapper {
       width: 100%;

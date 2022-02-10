@@ -5,8 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   position: absolute;
 
-  width: 5rem;
-  height: 5rem;
+  height: 6rem;
 
   > button,
   a > button {
@@ -30,6 +29,8 @@ export const Container = styled.div`
     > button {
       width: 100%;
       height: 100%;
+      
+      padding: 0.5rem;
     }
   }
 
@@ -46,6 +47,8 @@ export const Container = styled.div`
     background-color: #840c0d;
 
     border-radius: 0 0 0.5rem 0.5rem;
+
+    padding: 0.5rem;
 
     :hover {
       background-color: #d71719;

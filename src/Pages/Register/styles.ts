@@ -7,6 +7,8 @@ export const Container = styled.div`
   height: 100%;
 
   padding: 1.5rem;
+  
+  overflow-x:auto;
 
   #dragonLogo {
     width: 100%;
@@ -147,10 +149,10 @@ export const Content = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 95%;
-    height: 100%;
 
     padding: 2rem 2rem;
+
+    height:auto;
 
     .formWrapper {
       width: 100%;
@@ -178,7 +180,11 @@ export const Content = styled.div`
   }
 
   @media screen and (max-width: 460px) {
-    height: 80%;
+    height:auto;
+
+    > h1 {
+      font-size:1.1rem;
+    }
 
     .formWrapper {
       width: 100%;
@@ -186,9 +192,6 @@ export const Content = styled.div`
       justify-content: center;
 
       gap: 2rem;
-
-      overflow-y: auto;
-      overflow-x: hidden;
 
       display: grid;
       grid-template-columns: repeat(1, 1fr);
@@ -198,6 +201,7 @@ export const Content = styled.div`
         "nameDragonWrapper"
         "historiesWrapper";
     }
+    
     #history {
       min-width: 15rem;
       min-height: 6rem;

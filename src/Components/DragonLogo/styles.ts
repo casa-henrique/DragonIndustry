@@ -19,6 +19,18 @@ export const Container = styled.div`
     width: 100%;
   }
   @media screen and (max-width: 425px) {
-    width: 70%;
+    width: 80%;
+
+    > header {
+      display: flex;
+      flex-direction: row;
+
+      justify-content:center;
+
+      > a {
+        width:50%;
+      }
+    }
+
   }
 `;

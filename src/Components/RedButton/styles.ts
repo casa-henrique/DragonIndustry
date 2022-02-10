@@ -31,10 +31,4 @@ export const Container = styled.div`
       box-shadow: 0px 0px 12px 0px rgba(255, 184, 0, 1) inset;
     }
   }
-
-  @media screen and (max-width: 425px) {
-    > button {
-      width: 50%;
-    }
-  }
 `;

@@ -13,8 +13,8 @@ export const Container = styled.div`
   padding-top: 5rem;
 
   #logoError {
-    width: 65%;
-    height: 65%;
+    width: 50%;
+    height: 50%;
   }
 
   > p,

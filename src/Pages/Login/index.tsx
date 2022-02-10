@@ -30,7 +30,7 @@ function Login({ setToken }: any) {
       password,
     });
 
-    if (username == "softUser" && password == "soft2022") {
+    if (username === "softUser" && password === "soft2022") {
       setToken(newToken);
     } else {
       alert("Login ou senha estão incorretos");
