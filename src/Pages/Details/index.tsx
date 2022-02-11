@@ -23,16 +23,16 @@ interface DetailsProps {
 function Details() {
   const [contentEditable, setContentEditable] = useState(false);
   const [infos, setInfos] = useState<DetailsProps | any>([]);
+  const [cloneInfos, setCloneInfos] = useState<DetailsProps | any>([]);
 
   const history = () =>
-    infos.histories != "" ? infos.histories : "Não possui história";
+    cloneInfos.histories != "" ? cloneInfos.histories : "Não possui história";
 
   const location = useLocation();
   const id = location.pathname.replace("/details:", "").replace(":edit", "");
   const pathEditable = location.pathname.replace(`/details:${id}:`, "");
 
-  const refresh = () => window.location.replace(`/details:${id}`);
-
+  const editable = () => setContentEditable(!contentEditable);
   const notify = () => toast.success("Editado com sucesso!!");
 
   const [editDate, setEditDate] = useState("");
@@ -41,10 +41,10 @@ function Details() {
   const [editHs, setEditHs] = useState("");
 
   const newData = {
-    createdAt: `${editDate != "" ? editDate : infos.createdAt}`,
-    name: `${editName != "" ? editName : infos.name}`,
-    type: `${editType != "" ? editType : infos.type}`,
-    histories: `${editHs != "" ? editHs : infos.histories}`,
+    createdAt: `${editDate != "" ? editDate : cloneInfos.createdAt}`,
+    name: `${editName != "" ? editName : cloneInfos.name}`,
+    type: `${editType != "" ? editType : cloneInfos.type}`,
+    histories: `${editHs != "" ? editHs : cloneInfos.histories}`,
     id: `${infos.id}`,
   };
 
@@ -86,6 +86,12 @@ function Details() {
     details();
   }, []);
 
+  useEffect(() => {
+    setCloneInfos(infos);
+    console.log("infos", infos);
+    console.log("clone", cloneInfos);
+  }, [infos]);
+
   return (
     <Container>
       <DragonLogo width="mini" />
@@ -95,7 +101,7 @@ function Details() {
             <a href="/dragonlist">
               <IoArrowUndoSharp />
             </a>
-            <button onClick={() => setContentEditable(!contentEditable)}>
+            <button onClick={() => editable()}>
               <IoPencil />
             </button>
             <img src={noPicture} alt="" />
@@ -138,15 +144,15 @@ function Details() {
                 func={async () => {
                   await sendNewData();
                   await notify();
-                  await refresh();
+                  await editable();
                 }}
               />
             </form>
           ) : (
             <div className="cardInfos">
-              <h2>{infos.name}</h2>
-              <p>Tipo: {infos.type}</p>
-              <p>Criação: {infos.createdAt}</p>
+              <h2>{cloneInfos!.name}</h2>
+              <p>Tipo: {cloneInfos!.type}</p>
+              <p>Criação: {cloneInfos!.createdAt}</p>
             </div>
           )}
         </div>

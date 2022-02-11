@@ -8,8 +8,6 @@ import { Container } from "./styles";
 import {} from "@testing-library/react";
 
 function MenuCard({ id, name }: any) {
-  const refresh = () => window.location.reload();
-
   const notify = () => toast.warn(`O Dragão ${name} foi excluido com sucesso`);
 
   const remove_dragons = async () => {
@@ -36,9 +34,8 @@ function MenuCard({ id, name }: any) {
         id="delete"
         onClick={async () => {
           {
-            await notify();
             await remove_dragons();
-            await refresh();
+            await notify();
           }
         }}
       >

@@ -17,30 +17,36 @@ interface DragonProps {
 
 function DragonList() {
   const [dragons, setDragons] = useState<DragonProps | any>([]);
+  const [cloneDragons, setCloneDragons] = useState<DragonProps | any>([]);
+
+  const listDragons = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
+      );
+
+      console.log(data);
+
+      setDragons(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const listDragons = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
-        );
-
-        console.log(data);
-
-        setDragons(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     listDragons();
   }, []);
+
+  useEffect(() => {
+    setCloneDragons(dragons);
+  }, [dragons]);
 
   return (
     <Container>
       <DragonLogo button="show" />
 
       <Content>
-        {dragons
+        {cloneDragons
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((item: any) => (
             <DragonCard name={item.name} key={item.id} id={item.id} />
