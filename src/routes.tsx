@@ -20,7 +20,6 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/dragonlist" element={<DragonList />} />
         <Route path="/register" element={<Register />} />
         <Route path={`/details:id`} element={<Details />} />

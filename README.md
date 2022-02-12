@@ -17,6 +17,6 @@ Passos para a inicialização da aplicação:
 
 4 - Para darmos inicio ao Servidor: yarn start
 
-5 - Para darmos inicio ao Servidor local de autenticação: node server.tsx
+5 - Para darmos inicio ao Servidor local de autenticação: node server.ts
 
 6 - Login: softUser; Senha: soft2022

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Container, Content } from "./styles";
@@ -16,7 +16,9 @@ function Register() {
   const [newType, setNewType] = useState("");
   const [newHs, setNewHs] = useState("");
 
-  const notify = () => toast.success(`Dragão ${newName} criado com sucesso`);
+  const notifySuccess = () =>
+    toast.success(`Dragão ${newName} criado com sucesso`);
+  const notifyFail = () => toast.error(`Dragão ${newName} não foi criado`);
 
   const current = new Date();
   const newDate = `${current.getDate()}/${
@@ -36,6 +38,11 @@ function Register() {
         `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon`,
         newDragon
       );
+      if (response.status === 201) {
+        await notifySuccess();
+      } else {
+        await notifyFail();
+      }
 
       return response.data;
     } catch (error) {
@@ -43,8 +50,11 @@ function Register() {
     }
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
+    await createNewDragon();
+
+    window.location.replace(`/dragonlist`);
   };
 
   return (
@@ -94,17 +104,10 @@ function Register() {
               onChange={(event) => setNewHs(event.target.value)}
             />
           </div>
-        </form>
 
-        <RedButton
-          text="Adicionar Dragão"
-          func={async () => {
-            await createNewDragon();
-            await notify();
-          }}
-        />
+          <RedButton text="Adicionar Dragão" type="submit" />
+        </form>
       </Content>
-      <ToastContainer />
     </Container>
   );
 }

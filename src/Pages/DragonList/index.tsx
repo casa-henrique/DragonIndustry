@@ -17,39 +17,28 @@ interface DragonProps {
 
 function DragonList() {
   const [dragons, setDragons] = useState<DragonProps | any>([]);
-  const [cloneDragons, setCloneDragons] = useState<DragonProps | any>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const listDragons = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
-        );
+  const list_dragons = async () => {
+    try {
+      const response = await axios.get(
+        "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
+      );
 
-        setDragons(data);
-      } catch (error) {
-        console.log(error);
+      if (response.status === 500) {
+        setLoading(false);
       }
-    };
-    listDragons();
-  }, []);
+
+      setDragons(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    setCloneDragons(dragons);
+    list_dragons();
 
-    console.log("clone:", cloneDragons);
-    console.log("dragons:", dragons);
-  }, [dragons]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      await new Promise((r) => setTimeout(r, 1500));
-
-      setLoading((loading) => !loading);
-    };
-
-    loadData();
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -63,7 +52,12 @@ function DragonList() {
           {dragons
             .sort((a: any, b: any) => a.name.localeCompare(b.name))
             .map((item: any) => (
-              <DragonCard name={item.name} key={item.id} id={item.id} />
+              <DragonCard
+                name={item.name}
+                key={item.id}
+                id={item.id}
+                realoadData={list_dragons}
+              />
             ))}
         </Content>
       </Container>

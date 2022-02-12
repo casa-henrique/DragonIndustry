@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Container } from "./styles";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { GiCrossedSwords } from "react-icons/gi";
@@ -27,8 +27,9 @@ function Login({ setToken }: any) {
   const redirect = () => window.location.replace(`/dragonlist`);
   const notify = () => toast.error("Login ou senha estão incorretos");
 
-  const handleSubmit = async (e: any) => {
+  const handle_submit = async (e: any) => {
     e.preventDefault();
+
     const newToken = await loginUser({
       username,
       password,
@@ -44,7 +45,7 @@ function Login({ setToken }: any) {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handle_submit}>
         <img src={DragonLogo} alt="Dragon Indusrty Logo" id="logoImg" />
         <div className="titleWrapper">
           <GiCrossedSwords className="crossedSwords" />
@@ -65,9 +66,8 @@ function Login({ setToken }: any) {
           />
         </div>
 
-        <RedButton text="Entrar" />
+        <RedButton text="Entrar" type="submit" />
       </form>
-      <ToastContainer />
     </Container>
   );
 }

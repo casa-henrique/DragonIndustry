@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Container, Content } from "./styles";
@@ -23,29 +23,46 @@ interface DetailsProps {
 function Details() {
   const [contentEditable, setContentEditable] = useState(false);
   const [infos, setInfos] = useState<DetailsProps | any>([]);
-  const [cloneInfos, setCloneInfos] = useState<DetailsProps | any>([]);
 
   const history = () =>
-    cloneInfos.histories != "" ? cloneInfos.histories : "Não possui história";
+    infos.histories != "" ? infos.histories : "Não possui história";
 
   const location = useLocation();
   const id = location.pathname.replace("/details:", "").replace(":edit", "");
   const pathEditable = location.pathname.replace(`/details:${id}:`, "");
 
   const editable = () => setContentEditable(!contentEditable);
-  const notify = () => toast.success("Editado com sucesso!!");
 
   const [editDate, setEditDate] = useState("");
   const [editName, setEditName] = useState("");
   const [editType, setEditType] = useState("");
   const [editHs, setEditHs] = useState("");
 
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
+  const notifySuccess = () => toast.success(`O Dragão foi editado com sucesso`);
+  const notifyFail = () => toast.error(`O Dragão não foi editado`);
+
   const newData = {
-    createdAt: `${editDate != "" ? editDate : cloneInfos.createdAt}`,
-    name: `${editName != "" ? editName : cloneInfos.name}`,
-    type: `${editType != "" ? editType : cloneInfos.type}`,
-    histories: `${editHs != "" ? editHs : cloneInfos.histories}`,
+    createdAt: `${editDate != "" ? editDate : infos.createdAt}`,
+    name: `${editName != "" ? editName : infos.name}`,
+    type: `${editType != "" ? editType : infos.type}`,
+    histories: `${editHs != "" ? editHs : infos.histories}`,
     id: `${infos.id}`,
+  };
+
+  const details = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/${id}`
+      );
+
+      setInfos(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const sendNewData = async () => {
@@ -55,14 +72,17 @@ function Details() {
         newData
       );
 
+      if (response.status === 200) {
+        details();
+        await notifySuccess();
+      } else {
+        await notifyFail();
+      }
+
       return response.data;
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
   };
 
   useEffect(() => {
@@ -72,25 +92,8 @@ function Details() {
   }, []);
 
   useEffect(() => {
-    const details = async () => {
-      try {
-        const { data } = await axios.get(
-          `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/${id}`
-        );
-
-        setInfos(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     details();
   }, []);
-
-  useEffect(() => {
-    setCloneInfos(infos);
-    console.log("infos", infos);
-    console.log("clone", cloneInfos);
-  }, [infos]);
 
   return (
     <Container>
@@ -143,16 +146,15 @@ function Details() {
                 text="Confirmar"
                 func={async () => {
                   await sendNewData();
-                  await notify();
                   await editable();
                 }}
               />
             </form>
           ) : (
             <div className="cardInfos">
-              <h2>{cloneInfos!.name}</h2>
-              <p>Tipo: {cloneInfos!.type}</p>
-              <p>Criação: {cloneInfos!.createdAt}</p>
+              <h2>{infos!.name}</h2>
+              <p>Tipo: {infos!.type}</p>
+              <p>Criação: {infos!.createdAt}</p>
             </div>
           )}
         </div>
@@ -171,7 +173,6 @@ function Details() {
           </p>
         </div>
       </Content>
-      <ToastContainer />
     </Container>
   );
 }
