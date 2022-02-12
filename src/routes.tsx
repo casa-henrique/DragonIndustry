@@ -21,8 +21,8 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/register" element={<Register />} />
         <Route path="/dragonlist" element={<DragonList />} />
+        <Route path="/register" element={<Register />} />
         <Route path={`/details:id`} element={<Details />} />
         <Route path="*" element={<Error404 />} />
       </Switch>
