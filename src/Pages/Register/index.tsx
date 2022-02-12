@@ -66,7 +66,7 @@ function Register() {
           precisamos de algumas informações:
         </h1>
         <form className="formWrapper" onSubmit={handleSubmit}>
-          <div id="imageWrapper">
+          <div className="inputWrapper" id="imageWrapper">
             <h2>1</h2>
             <p>Imagem do dragão</p>
 
@@ -75,7 +75,7 @@ function Register() {
               <input type="file" hidden />
             </label>
           </div>
-          <div id="typeWrapper">
+          <div className="inputWrapper" id="typeWrapper">
             <h2>2</h2>
             <p>Tipo do Dragão</p>
             <input
@@ -85,7 +85,7 @@ function Register() {
               onChange={(event) => setNewType(event.target.value)}
             />
           </div>
-          <div id="nameDragonWrapper">
+          <div className="inputWrapper" id="nameDragonWrapper">
             <h2>3</h2>
             <p>Nome do Dragão</p>
             <input
@@ -95,7 +95,7 @@ function Register() {
               onChange={(event) => setNewName(event.target.value)}
             />
           </div>
-          <div id="historiesWrapper">
+          <div className="inputWrapper" id="historiesWrapper">
             <h2>4</h2>
             <p>História Do Dragão</p>
             <textarea
@@ -105,7 +105,9 @@ function Register() {
             />
           </div>
 
-          <RedButton text="Adicionar Dragão" type="submit" />
+          <div className="buttonWrapper">
+            <RedButton text="Adicionar Dragão" type="submit" />
+          </div>
         </form>
       </Content>
     </Container>

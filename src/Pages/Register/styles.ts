@@ -7,8 +7,8 @@ export const Container = styled.div`
   height: 100%;
 
   padding: 1.5rem;
-  
-  overflow-x:auto;
+
+  overflow-x: auto;
 
   #dragonLogo {
     width: 100%;
@@ -56,30 +56,32 @@ export const Content = styled.div`
 
     grid-template-areas:
       "imageWrapper typeWrapper nameDragonWrapper"
-      "historiesWrapper historiesWrapper historiesWrapper";
+      "historiesWrapper historiesWrapper historiesWrapper"
+      "button button button";
+  }
 
-    > div {
-      display: flex;
-      flex-direction: column;
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
 
-      align-items: center;
-      justify-content: center;
+    align-items: center;
+    justify-content: center;
 
-      gap: 1.5rem;
+    gap: 1.5rem;
 
-      > h2,
-      p {
-        font-weight: bold;
-        font-family: "Cinzel decorative";
-      }
-      > h2 {
-        font-size: 2rem;
-      }
-      > p {
-        font-size: 1.2rem;
-      }
+    > h2,
+    p {
+      font-weight: bold;
+      font-family: "Cinzel decorative";
+    }
+    > h2 {
+      font-size: 2rem;
+    }
+    > p {
+      font-size: 1.2rem;
     }
   }
+
   #imageWrapper {
     grid-area: imageWrapper;
     > label {
@@ -148,11 +150,20 @@ export const Content = styled.div`
     max-height: 16.8rem;
   }
 
-  @media screen and (max-width: 768px) {
+  .buttonWrapper {
+    display: flex;
+    width: 100%;
 
+    align-items: center;
+    justify-content: center;
+
+    grid-area: button;
+  }
+
+  @media screen and (max-width: 768px) {
     padding: 2rem 2rem;
 
-    height:auto;
+    height: auto;
 
     .formWrapper {
       width: 100%;
@@ -160,9 +171,13 @@ export const Content = styled.div`
 
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+
+      row-gap: 3rem;
+
       grid-template-areas:
         "imageWrapper typeWrapper"
-        "nameDragonWrapper historiesWrapper";
+        "nameDragonWrapper historiesWrapper"
+        "button button";
     }
 
     .inputText {
@@ -180,10 +195,11 @@ export const Content = styled.div`
   }
 
   @media screen and (max-width: 460px) {
-    height:auto;
+    height: auto;
+    width: 100%;
 
     > h1 {
-      font-size:1.1rem;
+      font-size: 1.1rem;
     }
 
     .formWrapper {
@@ -199,9 +215,10 @@ export const Content = styled.div`
         "imageWrapper"
         "typeWrapper"
         "nameDragonWrapper"
-        "historiesWrapper";
+        "historiesWrapper"
+        "button";
     }
-    
+
     #history {
       min-width: 15rem;
       min-height: 6rem;
